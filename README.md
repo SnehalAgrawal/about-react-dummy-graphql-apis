@@ -29,6 +29,10 @@
    npm start
   ```
 
+- Above command will run graphql server on http://localhost:4000/graphql
+
+- Open URL in browser and you will see graphql playground to test the query/mutation
+
 # APIs and Payload
 
 1. **To get complete User List**
