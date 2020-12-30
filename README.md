@@ -32,7 +32,7 @@
 # APIs and Payload
 
 1. **To get complete User List**
-   ```JSON
+   ```bash
    query users {
      users {
        name
@@ -44,7 +44,7 @@
    }
    ```
 2. **To get Single User Detail**
-   ```JSON
+   ```bash
    query user {
      user(email: "newuser@gmail.com") {
        name
@@ -56,7 +56,7 @@
    }
    ```
 3. **To Create User**
-   ```JSON
+   ```bash
    mutation createUser {
      createUser(
        name: "New User"
@@ -68,8 +68,7 @@
    }
    ```
 4. **To Update User**
-
-   ```JSON
+   ```bash
    mutation updateUser {
      updateUser(
        name: "Some Name"
@@ -82,7 +81,7 @@
    ```
 
 5. **To Delete User**
-   ```JSON
+   ```bash
    mutation deleteUser {
      deleteUser(
        email: "newuser@gmail.com"
