@@ -1,0 +1,27 @@
+{
+  "name": "about-react-dummy-graphql-apis",
+  "version": "1.0.0",
+  "description": "This is a project for the dummy GraphQL APIs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server.js"
+  },
+  "keywords": [],
+  "author": "Snehal Agrawal (https://aboutreact.com)",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-boost": "^0.4.3",
+    "apollo-server-express": "^2.8.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
+  }
+}
