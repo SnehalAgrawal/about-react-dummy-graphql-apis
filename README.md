@@ -9,7 +9,7 @@
 - Jump into the directory
 
   ```bash
-  cd about-react-dummy-apis
+  cd about-react-dummy-graphql-apis
   ```
 
 - Install:
