@@ -9,13 +9,7 @@
 - Jump into the directory
 
   ```bash
-  cd about-react-dummy-apis
-  ```
-
-- Install:
-
-  ```bash
-   npm install -g nodemon
+  cd about-react-dummy-graphql-apis
   ```
 
 - Install:
@@ -68,6 +62,7 @@
    }
    ```
 4. **To Update User**
+
    ```bash
    mutation updateUser {
      updateUser(
@@ -81,11 +76,26 @@
    ```
 
 5. **To Delete User**
+
    ```bash
    mutation deleteUser {
      deleteUser(
        email: "newuser@gmail.com"
      )
+   }
+   ```
+
+6. **To Subscribe Realtime User Creation Event**
+
+   ```bash
+   subscription userAdded {
+    userAdded{
+      name
+      age
+      email
+      address
+      password
+    }
    }
    ```
 

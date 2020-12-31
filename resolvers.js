@@ -1,3 +1,7 @@
+const { PubSub } = require("apollo-server-express");
+
+const pubsub = new PubSub();
+
 const fs = require("fs");
 
 export default {
@@ -11,7 +15,10 @@ export default {
       const users = require("./users");
       let newUsers = users.filter(function (e) {
         return (
-          e.email && e.email.toLowerCase().includes(args.email.toLowerCase())
+          e.email &&
+          e.email
+            .toLowerCase()
+            .includes(args.email.toLowerCase())
         );
       });
       if (newUsers.length > 0) return newUsers[0];
@@ -27,15 +34,30 @@ export default {
       });
       if (filteredUser.length > 0) {
         // If user exists return duplicate error
-        return { status: "failed", message: "Duplicate User" };
+        return {
+          status: "failed",
+          message: "Duplicate User",
+        };
       } else {
         // If user not exists add user
         users.push(args);
-        fs.writeFile("./users.json", JSON.stringify(users), (err) => {
-          // If error in user creation
-          if (err) return { status: "failed", message: "Something Went Wrong" };
-        });
-        return { status: "success", message: "User Created" };
+        fs.writeFile(
+          "./users.json",
+          JSON.stringify(users),
+          (err) => {
+            // If error in user creation
+            if (err)
+              return {
+                status: "failed",
+                message: "Something Went Wrong",
+              };
+          }
+        );
+        pubsub.publish("USER_ADDED", { userAdded: args });
+        return {
+          status: "success",
+          message: "User Created",
+        };
       }
     },
 
@@ -51,12 +73,28 @@ export default {
         }
         return item;
       });
-      fs.writeFile("./users.json", JSON.stringify(newUser), (err) => {
-        // Checking for errors
-        if (err) return { status: "failed", message: "Something Went Wrong" };
-      });
-      if (isUpdated) return { status: "success", message: "User Updted" };
-      else return { status: "failed", message: "User Not Found" };
+      fs.writeFile(
+        "./users.json",
+        JSON.stringify(newUser),
+        (err) => {
+          // Checking for errors
+          if (err)
+            return {
+              status: "failed",
+              message: "Something Went Wrong",
+            };
+        }
+      );
+      if (isUpdated)
+        return {
+          status: "success",
+          message: "User Updted",
+        };
+      else
+        return {
+          status: "failed",
+          message: "User Not Found",
+        };
     },
 
     deleteUser: (_parent, args, {}, _info) => {
@@ -66,12 +104,34 @@ export default {
         if (item.email === args.email) isDeleted = true;
         return item.email != args.email;
       });
-      fs.writeFile("./users.json", JSON.stringify(newUsers), (err) => {
-        // Checking for errors
-        if (err) return { status: "failed", message: "Something Went Wrong" };
-      });
-      if (isDeleted) return { status: "success", message: "User Deleted" };
-      else return { status: "failed", message: "User Not Found" };
+      fs.writeFile(
+        "./users.json",
+        JSON.stringify(newUsers),
+        (err) => {
+          // Checking for errors
+          if (err)
+            return {
+              status: "failed",
+              message: "Something Went Wrong",
+            };
+        }
+      );
+      if (isDeleted)
+        return {
+          status: "success",
+          message: "User Deleted",
+        };
+      else
+        return {
+          status: "failed",
+          message: "User Not Found",
+        };
+    },
+  },
+
+  Subscription: {
+    userAdded: {
+      subscribe: () => pubsub.asyncIterator(["USER_ADDED"]),
     },
   },
 };
