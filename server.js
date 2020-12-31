@@ -1,18 +1,29 @@
 import express from "express";
+import http from "http";
 import { ApolloServer, gql } from "apollo-server-express";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
+const app = express();
+const PORT = 4000;
 
 const server = new ApolloServer({
   typeDefs: gql(typeDefs),
   resolvers,
+  subscriptions: {
+    onConnect: () => console.log("Connected to websocket"),
+  },
+  tracing: true,
 });
 
-const app = express();
 server.applyMiddleware({ app });
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
-app.use(express.static("app/public"));
-
-app.listen({ port: 4000 }, () =>
-  console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+httpServer.listen({ port: PORT }, () => {
+  console.log(
+    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  );
+  console.log(
+    `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+  );
+});

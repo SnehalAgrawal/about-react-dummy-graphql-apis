@@ -15,12 +15,6 @@
 - Install:
 
   ```bash
-   npm install -g nodemon
-  ```
-
-- Install:
-
-  ```bash
    npm install
   ```
 
@@ -28,10 +22,6 @@
   ```bash
    npm start
   ```
-
-- Above command will run graphql server on http://localhost:4000/graphql
-
-- Open URL in browser and you will see graphql playground to test the query/mutation
 
 # APIs and Payload
 
@@ -72,6 +62,7 @@
    }
    ```
 4. **To Update User**
+
    ```bash
    mutation updateUser {
      updateUser(
@@ -85,11 +76,26 @@
    ```
 
 5. **To Delete User**
+
    ```bash
    mutation deleteUser {
      deleteUser(
        email: "newuser@gmail.com"
      )
+   }
+   ```
+
+6. **To Subscribe Realtime User Creation Event**
+
+   ```bash
+   subscription userAdded {
+    userAdded{
+      name
+      age
+      email
+      address
+      password
+    }
    }
    ```
 

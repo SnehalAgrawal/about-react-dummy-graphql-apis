@@ -29,4 +29,7 @@ export default `
       email: String!
     ): JSON
   }
+  type Subscription {
+    userAdded: User
+  }
 `;
